@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NovaCom — Agence de Communication Intégrée</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="NOva LOGO.jpeg">
+</head>
+<body>
+  <style>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <div class="logo">
+        <img src="NOva LOGO.jpeg" alt="Logo NovaCom" id="site-logo">
+      </div>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+      <nav id="navbar" aria-label="Menu principal">
+        <a href="#accueil">Accueil</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Réalisations</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section id="accueil" class="hero">
+      <div class="hero-content">
+        <div class="hero-logo">
+          <img src="NOva LOGO.jpeg" alt="Logo NovaCom grand" id="hero-logo-img">
+        </div>
+        <h1>Agence de communication</h1>
+        <p class="lead">Agence de communication intégrée spécialisée dans la création, la production et la gestion d'outils de communication visuelle et digitale pour les entreprises, institutions et organisations.</p>
+        <p class="typed" aria-hidden="true"></p>
+        <div class="hero-cta">
+          <a class="cta" href="#services">Découvrir nos services</a>
+          <a class="cta ghost" href="#portfolio">Voir nos réalisations</a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Services -->
+    <section id="services" class="section" role="region" aria-labelledby="services-title">
+      <div class="container">
+        <h2 id="services-title" class="services-title">Nos Services</h2>
+        <p class="services-intro">Découvrez notre expertise pour valoriser votre image et booster votre communication.</p>
+        <div class="cards">
+          <div class="card" data-reveal>
+            <div class="icon">🎨</div>
+            <h3>Création</h3>
+            <p>Identité visuelle, design graphique, branding.</p>
+          </div>
+          <div class="card" data-reveal>
+            <div class="icon">🎬</div>
+            <h3>Production</h3>
+            <p>Vidéo, animation, contenus digitaux.</p>
+          </div>
+          <div class="card" data-reveal>
+            <div class="icon">📊</div>
+            <h3>Gestion</h3>
+            <p>Stratégie, campagnes, réseaux sociaux.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Réalisations / Portfolio -->
+    <section id="portfolio" class="section">
+      <div class="container">
+        <h2>Réalisations</h2>
+        <div class="gallery">
+          <figure data-reveal>
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" alt="Campagne publicitaire — Mode">
+            <figcaption>Campagne publicitaire — Mode</figcaption>
+          </figure>
+          <figure data-reveal>
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Identité visuelle — Startup Tech">
+            <figcaption>Identité visuelle — Startup Tech</figcaption>
+          </figure>
+          <figure data-reveal>
+            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="Gestion réseaux sociaux — ONG">
+            <figcaption>Gestion réseaux sociaux — ONG</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <div id="lightbox" role="dialog" aria-hidden="true" onclick="closeLightbox()">
+      <button id="lb-close" class="lb-close" aria-label="Fermer">✕</button>
+      <img id="lightbox-img" src="" alt="Agrandissement">
+      <p id="lightbox-caption" class="lb-caption" aria-hidden="false"></p>
+    </div>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <p class="muted" style="margin-bottom: 24px;">Envoyez-nous un message et nous vous répondrons dans les plus brefs délais.</p>
+        
+        <!-- Contact Form -->
+        <form id="contact-form" style="max-width: 500px; margin: 0 auto 32px;">
+          <label for="name" style="display:block; margin-bottom:8px; font-weight:600;">Nom *</label>
+          <input id="name" type="text" placeholder="Votre nom" required style="width:100%; margin-bottom:14px;">
+          
+          <label for="email" style="display:block; margin-bottom:8px; font-weight:600;">Email *</label>
+          <input id="email" type="email" placeholder="votre@email.com" required style="width:100%; margin-bottom:14px;">
+          
+          <label for="message" style="display:block; margin-bottom:8px; font-weight:600;">Message *</label>
+          <textarea id="message" placeholder="Votre message..." rows="5" required style="width:100%; margin-bottom:14px;"></textarea>
+          
+          <button type="submit" style="background:var(--accent); color:#fff; border:0; padding:12px 24px; border-radius:8px; cursor:pointer; font-weight:600;">Envoyer</button>
+          <p id="form-feedback" style="margin-top:12px; font-size:0.95rem;"></p>
+        </form>
+
+        <!-- Contact Info -->
+        <div style="border-top: 1px solid rgba(0,0,0,0.1); padding-top:24px; text-align:center;">
+          <p style="margin:8px 0;"><strong>Téléphone:</strong> <a href="tel:+22369119869">+223 69 11 98 69</a></p>
+          <p style="margin:8px 0;"><strong>Email:</strong> <a href="mailto:zerofadecloud.com@gmail.com">zerofadecloud.com@gmail.com</a></p>
+          <p style="margin:8px 0;"><strong>Adresse:</strong> 12 rue de la Communication, 75000 Paris</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Back to top & Footer -->
+  <button id="back-to-top" aria-label="Haut de page">↑</button>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© 2025 NovaCom — Tous droits réservés</p>
+      <p class="muted">Agence indépendante — Création • Production • Gestion</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
