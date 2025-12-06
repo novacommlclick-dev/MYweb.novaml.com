@@ -172,7 +172,7 @@ form?.addEventListener('submit', e => {
   }
 
   // Build a mailto: link so the user's mail client opens (static-only, no backend)
-  const to = "zerofadecloud.com@gmail.com";
+  const to = "novacomml.click@gmail.com";
   const subject = encodeURIComponent(`Demande de contact — ${name}`);
   const body = encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
   const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
@@ -223,3 +223,4 @@ if (document.readyState === 'loading') {
   // DOM already ready — run initialization immediately
   initSite();
 }
+
