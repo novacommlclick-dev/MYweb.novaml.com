@@ -75,6 +75,7 @@ function toggleTheme(){ applyTheme(!document.documentElement.classList.contains(
 /* Mobile menu */
 const menuToggle = document.getElementById('menu-toggle');
 const navbar = document.getElementById('navbar');
+const header = document.querySelector('header');
 menuToggle?.addEventListener('click',()=>{ navbar.classList.toggle('open') });
 
 /* Smooth anchor scroll handled by CSS scroll-behavior, but ensure menu closes on click */
@@ -86,19 +87,35 @@ document.querySelectorAll('#navbar a').forEach(a=>{
 const typedEl = document.querySelector('.typed');
 const phrases = ["Identité visuelle sur‑mesure","Contenus vidéo & motion design","Stratégies digitales performantes"];
 let tI=0, tPos=0, deleting=false;
+const typingSpeed = 90;
+const deletingSpeed = 60;
+const pauseAfterFull = 1300;
+const pauseAfterDelete = 300;
+
 function tick(){
   if(!typedEl) return;
   const full = phrases[tI];
   if(!deleting){
     typedEl.textContent = full.slice(0,tPos+1);
     tPos++;
-    if(tPos===full.length){ setTimeout(()=>deleting=true,900); }
+    if(tPos===full.length){
+      setTimeout(()=>{
+        deleting = true;
+        setTimeout(tick, deletingSpeed);
+      }, pauseAfterFull);
+      return;
+    }
   } else {
-    typedEl.textContent = full.slice(0,tPos-1);
+    typedEl.textContent = full.slice(0,Math.max(0,tPos-1));
     tPos--;
-    if(tPos===0){ deleting=false; tI=(tI+1)%phrases.length }
+    if(tPos===0){
+      deleting=false;
+      tI=(tI+1)%phrases.length;
+      setTimeout(tick, pauseAfterDelete);
+      return;
+    }
   }
-  setTimeout(tick, deleting?60:90);
+  setTimeout(tick, deleting?deletingSpeed:typingSpeed);
 }
 
 /* Reveal on scroll */
@@ -152,6 +169,10 @@ document.querySelector('.t-next')?.addEventListener('click',()=>{ stopSlides(); 
 const backTop = document.getElementById('back-to-top');
 window.addEventListener('scroll',()=>{
   if(window.scrollY>300) backTop.style.display='block'; else backTop.style.display='none';
+  // Toggle scrolled class for header to enable stronger translucent background on scroll (mobile and desktop)
+  if(header){
+    if(window.scrollY>15) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+  }
   onScrollReveal();
 });
 backTop?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
@@ -223,4 +244,3 @@ if (document.readyState === 'loading') {
   // DOM already ready — run initialization immediately
   initSite();
 }
-
