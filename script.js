@@ -83,39 +83,48 @@ document.querySelectorAll('#navbar a').forEach(a=>{
   a.addEventListener('click',()=>{ navbar.classList.remove('open') });
 });
 
-/* Simple typed text in hero */
+/* Simple typed text in hero + NYELI cover */
 const typedEl = document.querySelector('.typed');
+const nyeliTypedEl = document.querySelector('.nyeli-typed');
 const phrases = ["Identité visuelle sur‑mesure","Contenus vidéo & motion design","Stratégies digitales performantes"];
-let tI=0, tPos=0, deleting=false;
+const nyeliPhrases = ["Voix féminines amplifiées","Culture, numérique et droits","Leadership et participation citoyenne"];
 const typingSpeed = 90;
 const deletingSpeed = 60;
 const pauseAfterFull = 1300;
 const pauseAfterDelete = 300;
 
-function tick(){
-  if(!typedEl) return;
-  const full = phrases[tI];
-  if(!deleting){
-    typedEl.textContent = full.slice(0,tPos+1);
-    tPos++;
-    if(tPos===full.length){
-      setTimeout(()=>{
-        deleting = true;
-        setTimeout(tick, deletingSpeed);
-      }, pauseAfterFull);
-      return;
+function startTypewriter(element, items){
+  if(!element || !items?.length) return;
+  let itemIndex = 0;
+  let textPos = 0;
+  let isDeleting = false;
+
+  function write(){
+    const full = items[itemIndex];
+    if(!isDeleting){
+      element.textContent = full.slice(0, textPos + 1);
+      textPos++;
+      if(textPos===full.length){
+        setTimeout(()=>{
+          isDeleting = true;
+          setTimeout(write, deletingSpeed);
+        }, pauseAfterFull);
+        return;
+      }
+    } else {
+      element.textContent = full.slice(0, Math.max(0, textPos - 1));
+      textPos--;
+      if(textPos===0){
+        isDeleting = false;
+        itemIndex = (itemIndex + 1) % items.length;
+        setTimeout(write, pauseAfterDelete);
+        return;
+      }
     }
-  } else {
-    typedEl.textContent = full.slice(0,Math.max(0,tPos-1));
-    tPos--;
-    if(tPos===0){
-      deleting=false;
-      tI=(tI+1)%phrases.length;
-      setTimeout(tick, pauseAfterDelete);
-      return;
-    }
+    setTimeout(write, isDeleting ? deletingSpeed : typingSpeed);
   }
-  setTimeout(tick, deleting?deletingSpeed:typingSpeed);
+
+  write();
 }
 
 /* Reveal on scroll */
@@ -213,7 +222,8 @@ function initSite(){
   const preferred = localStorage.getItem('nova_theme');
   applyTheme(preferred==='dark');
   // typed
-  tick();
+  startTypewriter(typedEl, phrases);
+  startTypewriter(nyeliTypedEl, nyeliPhrases);
   // testimonials layout: wrap slides
   if(slider){
     const slides = Array.from(slider.children);
